@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>30DayMapChallenge - A bad map</title>
+        <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+        <link
+            href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <button onclick="mode =  1">Let's Party!😃</button>
+        <button onclick="mode =  2">Let's Super Party!😎</button>
+        <button onclick="mode =  0">Stop Party😢</button>
+        <div id="map" style="height: 80vh">
+            <img
+                class="parrot-img"
+                src="parrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    left: 0px;
+                    bottom: 0px;
+                    z-index: 10;
+                    visibility: hidden;
+                "
+            />
+            <img
+                class="parrot-img"
+                src="parrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    right: 0px;
+                    bottom: 0px;
+                    z-index: 10;
+                    transform: scale(-1, 1);
+                    visibility: hidden;
+                "
+            />
+            <img
+                class="parrot-img"
+                src="parrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    z-index: 10;
+                    transform: scale(1, -1);
+                    visibility: hidden;
+                "
+            />
+            <img
+                class="parrot-img"
+                src="parrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                    z-index: 10;
+                    transform: scale(-1, -1);
+                    visibility: hidden;
+                "
+            />
+            <img
+                class="parrot-img-fast"
+                src="ultrafastparrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    left: 0px;
+                    bottom: 0px;
+                    z-index: 10;
+                    visibility: hidden;
+                "
+            />
+            <img
+                class="parrot-img-fast"
+                src="ultrafastparrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    right: 0px;
+                    bottom: 0px;
+                    z-index: 10;
+                    transform: scale(-1, 1);
+                    visibility: hidden;
+                "
+            />
+            <img
+                class="parrot-img-fast"
+                src="ultrafastparrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    z-index: 10;
+                    transform: scale(1, -1);
+                    visibility: hidden;
+                "
+            />
+            <img
+                class="parrot-img-fast"
+                src="ultrafastparrot.gif"
+                width="400px"
+                style="
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                    z-index: 10;
+                    transform: scale(-1, -1);
+                    visibility: hidden;
+                "
+            />
+        </div>
+        <script>
+            let mode = 0;
+            const map = new maplibregl.Map({
+                container: 'map',
+                center: [139.699798, 35.68701],
+                pitch: 65,
+                zoom: 15,
+                interactive: false,
+                customAttribution:
+                    '<a href="https://github.com/jmhobbs/cultofthepartyparrot.com">jmhobbs/cultofthepartyparrot.com</a>',
+                style: {
+                    version: 8,
+                    glyphs: './fonts/{fontstack}/{range}.pbf', // フォントデータを指定
+                    sources: {
+                        gsi: {
+                            type: 'vector',
+                            tiles: [
+                                'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf',
+                            ],
+                            maxzoom: 14,
+                            attribution: '地理院ベクトルタイル',
+                        },
+                    },
+                    layers: [
+                        {
+                            // 背景色
+                            id: 'background',
+                            type: 'background',
+                            paint: {
+                                'background-color': '#222', // グレー
+                            },
+                        },
+                        {
+                            id: 'road-blur-out',
+                            source: 'gsi',
+                            'source-layer': 'road',
+                            type: 'line',
+                            paint: {
+                                'line-blur': 20,
+                                'line-width': 20,
+                                'line-color': 'red',
+                            },
+                        },
+                        {
+                            id: 'road-blur',
+                            source: 'gsi',
+                            'source-layer': 'road',
+                            type: 'line',
+                            paint: {
+                                'line-blur': 10,
+                                'line-width': 10,
+                                'line-color': 'orange',
+                            },
+                        },
+                        {
+                            id: 'road',
+                            source: 'gsi',
+                            'source-layer': 'road',
+                            type: 'line',
+                            paint: {
+                                'line-width': 1,
+                                'line-color': 'white',
+                            },
+                        },
+                        {
+                            id: 'building',
+                            source: 'gsi',
+                            'source-layer': 'building',
+                            type: 'fill-extrusion',
+                            paint: {
+                                'fill-extrusion-height': 100,
+                                'fill-extrusion-color': '#393',
+                                'fill-extrusion-opacity': 0.6,
+                            },
+                        },
+                    ],
+                },
+            });
+
+            let counter1 = 0;
+            let counter2 = 0;
+            const opacity = [0, 1, 0, 1, 0, 1];
+            const height = [50, 0, 50, 0, 50, 0];
+            const backgroundColor = [
+                '#444',
+                '#222',
+                '#444',
+                '#222',
+                '#444',
+                '#222',
+            ];
+            const color = [
+                '#ffaaaa',
+                '#ffaa66',
+                '#ffffaa',
+                '#aaffaa',
+                '#aaaaff',
+                '#ff6666',
+            ];
+            const parrotImgs = document.getElementsByClassName('parrot-img');
+            const parrotImgFasts =
+                document.getElementsByClassName('parrot-img-fast');
+            setInterval(() => {
+                if (mode === 1) {
+                    for (let i = 0; i < parrotImgs.length; i++) {
+                        parrotImgs[i].style.visibility = 'visible';
+                    }
+                    /**
+                    map.setPaintProperty(
+                        'background',
+                        'background-color',
+                        backgroundColor[counter1],
+                    );
+                    map.setPaintProperty(
+                        'road-blur-out',
+                        'line-opacity',
+                        opacity[counter1],
+                    );
+                    map.setPaintProperty(
+                        'road-blur',
+                        'line-opacity',
+                        opacity[counter1],
+                    );
+                    */
+                    map.setPaintProperty(
+                        'building',
+                        'fill-extrusion-height',
+                        50 + height[counter1],
+                    );
+                    map.setPaintProperty(
+                        'building',
+                        'fill-extrusion-color',
+                        color[counter1],
+                    );
+                } else {
+                    for (let i = 0; i < parrotImgs.length; i++) {
+                        parrotImgs[i].style.visibility = 'hidden';
+                    }
+                }
+
+                counter1++;
+                if (counter1 >= 6) counter1 = 0;
+            }, 200);
+
+            setInterval(() => {
+                if (mode === 2) {
+                    for (let i = 0; i < parrotImgFasts.length; i++) {
+                        parrotImgFasts[i].style.visibility = 'visible';
+                    }
+                    /**
+                    map.setPaintProperty(
+                        'background',
+                        'background-color',
+                        backgroundColor[counter2],
+                    );
+                    map.setPaintProperty(
+                        'road-blur-out',
+                        'line-opacity',
+                        opacity[counter2],
+                    );
+                    map.setPaintProperty(
+                        'road-blur',
+                        'line-opacity',
+                        opacity[counter2],
+                    );
+                    */
+                    map.setPaintProperty(
+                        'building',
+                        'fill-extrusion-height',
+                        50 + height[counter2] * 10,
+                    );
+                    map.setPaintProperty(
+                        'building',
+                        'fill-extrusion-color',
+                        color[counter2],
+                    );
+                } else {
+                    for (let i = 0; i < parrotImgFasts.length; i++) {
+                        parrotImgFasts[i].style.visibility = 'hidden';
+                    }
+                }
+
+                counter2++;
+                if (counter2 >= 6) counter2 = 0;
+            }, 100);
+        </script>
+    </body>
+</html>
