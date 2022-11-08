@@ -156,7 +156,7 @@
                             paint: {
                                 'line-blur': 20,
                                 'line-width': 20,
-                                'line-color': 'red',
+                                'line-color': 'pink',
                             },
                         },
                         {
@@ -167,7 +167,7 @@
                             paint: {
                                 'line-blur': 10,
                                 'line-width': 10,
-                                'line-color': 'orange',
+                                'line-color': '#ff00aa',
                             },
                         },
                         {
@@ -223,12 +223,6 @@
                     for (let i = 0; i < parrotImgs.length; i++) {
                         parrotImgs[i].style.visibility = 'visible';
                     }
-                    /**
-                    map.setPaintProperty(
-                        'background',
-                        'background-color',
-                        backgroundColor[counter1],
-                    );
                     map.setPaintProperty(
                         'road-blur-out',
                         'line-opacity',
@@ -239,7 +233,7 @@
                         'line-opacity',
                         opacity[counter1],
                     );
-                    */
+
                     map.setPaintProperty(
                         'building',
                         'fill-extrusion-height',
@@ -250,6 +244,8 @@
                         'fill-extrusion-color',
                         color[counter1],
                     );
+
+                    map.rotateTo(map.getBearing() + 5);
                 } else {
                     for (let i = 0; i < parrotImgs.length; i++) {
                         parrotImgs[i].style.visibility = 'hidden';
@@ -265,12 +261,6 @@
                     for (let i = 0; i < parrotImgFasts.length; i++) {
                         parrotImgFasts[i].style.visibility = 'visible';
                     }
-                    /**
-                    map.setPaintProperty(
-                        'background',
-                        'background-color',
-                        backgroundColor[counter2],
-                    );
                     map.setPaintProperty(
                         'road-blur-out',
                         'line-opacity',
@@ -281,7 +271,6 @@
                         'line-opacity',
                         opacity[counter2],
                     );
-                    */
                     map.setPaintProperty(
                         'building',
                         'fill-extrusion-height',
@@ -292,6 +281,7 @@
                         'fill-extrusion-color',
                         color[counter2],
                     );
+                    map.rotateTo(map.getBearing() + 30);
                 } else {
                     for (let i = 0; i < parrotImgFasts.length; i++) {
                         parrotImgFasts[i].style.visibility = 'hidden';
